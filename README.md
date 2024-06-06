@@ -1,7 +1,4 @@
 # C_languag_snack
-<<<<<<< HEAD
-<br>
-git remote add origin git@github.com:101AoiKoori/C_languag_snack.git
 <br>
 
 <style>
@@ -24,7 +21,5 @@ git remote add origin git@github.com:101AoiKoori/C_languag_snack.git
 </marquee>
 </div>
 
-
-=======
 delicious
->>>>>>> 13c31090b1093349c2ebe0ad8309e4ac0f482b0a
+
