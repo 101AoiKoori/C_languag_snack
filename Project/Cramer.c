@@ -101,7 +101,7 @@ void CramerRule(int **arr, int size1, int *answer, float *result)
     {
         n[i] = (int *)malloc((size1 - 1) * sizeof(int));
     }
-    //a用于交替让answer在行列式的不同列切换
+    //a用于交替answer在行列式的不同列切换
     for (int a = 0; a < size1; ++a)
     {
         //复制数组
