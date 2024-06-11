@@ -30,6 +30,7 @@ int main()
     {
         printf("x%d = %lf\t", l + 1, result[l]);
     }
+    
     printf("\n");
 
     return 0;
