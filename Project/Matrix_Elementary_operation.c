@@ -1,13 +1,26 @@
 #include<stdio.h>
 #define size 3
 
-void Line(int arr[][size], int line1, int line2)
+void Line(int arr[][size],int mode ,int num1, int num2)
 {
-    for (int j = 0; j < size; ++j)
+    int sign = (mode % 2 == 0) ? 1 : -1;
+    if(!sign)
     {
-        int temp = arr[line1][j];
-        arr[line1][j] = arr[line2][j];
-        arr[line2][j] = temp;
+        for (int j = 0; j < size; ++j)
+        {
+            int temp = arr[num1][j];
+            arr[num1][j] = arr[num2][j];
+            arr[num2][j] = temp;
+        }
+    }
+    else
+    {
+        for (int j = 0; j < size; ++j)
+        {
+            int temp = arr[j][num1];
+            arr[j][num1] = arr[j][num2];
+            arr[j][num2] = temp;
+        }
     }
 }
 
@@ -24,7 +37,23 @@ int main()
         printf("\n");
     }
 
-    Line(matrix, 1, 2); 
+    printf("行变换按1,列变换按2\n");
+    int a,k;
+    scanf("%d", &a);
+    switch (a)
+    {
+        case 1:
+            k = 1;
+            break;
+        case 2:
+            k = 2;
+            break;
+        default:
+            printf("输入错误");
+            break;
+    }
+
+    Line(matrix,k ,1, 2); 
 
     printf("\n交换后的矩阵:\n");
 
