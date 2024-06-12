@@ -6,28 +6,28 @@ void CramerRule(double **arr, int size1, double *answer, double *result);
 
 int main()
 {
-    double answer[3] = {1, 6, 9};
-
-    double arr[3][3] = {
-        {1, 1, 1},
-        {1, -1, 5},
-        {-1, 1, 6}};
+    double answer[4] = {1, 6, 9, 12};
+    int size = 4;
+    double arr[4][4] = {
+        {1, 1, 1, 2},
+        {1, -1, 5, 6},
+        {-1, 1, 6, 8},
+        {1, 2, 3, 4}};
 
     // 将二维数组转换为指针数组
-    double *arrPtr[3];
-    for (int i = 0; i < 3; ++i)
+    double *arrPtr[4];
+    for (int i = 0; i < size; ++i)
     {
         arrPtr[i] = arr[i];
     }
+    double result[4];
 
-    int size = 3;
-    double result[3];
 
     CramerRule(arrPtr, size, answer, result);
 
     for (int l = 0; l < size; ++l)
     {
-        printf("x%d = %lf\t", l + 1, result[l]);
+        printf("x%d = %.4f\t", l + 1, result[l]);
     }
 
     printf("\n");
@@ -119,7 +119,7 @@ void CramerRule(double **arr, int size1, double *answer, double *result)
         }
         // 计算行列式
         double detAi = matrix(n, size1);
-        printf("detAi=%lf, det=%lf\n", detAi, det);
+        printf("detAi=%.2f, det=%.2f\n\n", detAi, det);
         // 计算方程组的解
         result[a] = detAi / det;
     }
