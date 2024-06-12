@@ -1,28 +1,27 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-int matrix(int **arr, int size);
-
-void CramerRule(int **arr, int size1, int *answer, float *result);
+double matrix(double **arr, int size);
+void CramerRule(double **arr, int size1, double *answer, double *result);
 
 int main()
 {
-    int answer[3] = {1, 6, 9};
+    double answer[3] = {1, 6, 9};
 
-    int arr[3][3] = {
+    double arr[3][3] = {
         {1, 1, 1},
         {1, -1, 5},
         {-1, 1, 6}};
 
     // 将二维数组转换为指针数组
-    int *arrPtr[3];
+    double *arrPtr[3];
     for (int i = 0; i < 3; ++i)
     {
         arrPtr[i] = arr[i];
     }
 
     int size = 3;
-    float result[3];
+    double result[3];
 
     CramerRule(arrPtr, size, answer, result);
 
@@ -30,39 +29,39 @@ int main()
     {
         printf("x%d = %lf\t", l + 1, result[l]);
     }
-    
+
     printf("\n");
 
     return 0;
 }
 
-//计算行列式
-int matrix(int **arr, int size)
+// 计算行列式
+double matrix(double **arr, int size)
 {
     // 一阶行列式的处理
     if (size == 1)
     {
         return arr[0][0];
     }
-    // 开辟二维数组空间
-    int **p = (int **)malloc(size * sizeof(int *));
 
-    for (int i = 0; i < size; ++i)
+    // 开辟二维数组空间
+    double **p = (double **)malloc((size - 1) * sizeof(double *));
+
+    for (int i = 0; i < size - 1; ++i)
     {
-        p[i] = (int *)malloc((size - 1) * sizeof(int));
+        p[i] = (double *)malloc((size - 1) * sizeof(double));
     }
 
-    int i, j, k;
-    int sum = 0;
+    double sum = 0;
     // k用于计算代数余子式的正负号
-    for (k = 0; k < size; ++k)
+    for (int k = 0; k < size; ++k)
     {
         int m = 0;
         // 以第一行展开计算
-        for (i = 1; i < size; ++i)
+        for (int i = 1; i < size; ++i)
         {
             int n = 0;
-            for (j = 0; j < size; ++j)
+            for (int j = 0; j < size; ++j)
             {
                 if (j != k)
                 {
@@ -71,13 +70,13 @@ int matrix(int **arr, int size)
             }
             ++m;
         }
-        //判断正负号
+        // 判断正负号
         int sign = (k % 2 == 0) ? 1 : -1;
         // 用递归计算行列式的值
         sum += sign * arr[0][k] * matrix(p, size - 1);
     }
-    //释放内存
-    for (int i = 0; i < size; ++i)
+    // 释放内存
+    for (int i = 0; i < size - 1; ++i)
     {
         free(p[i]);
     }
@@ -86,26 +85,26 @@ int matrix(int **arr, int size)
     return sum;
 }
 
-//克莱姆法则计算线性方程组
-void CramerRule(int **arr, int size1, int *answer, float *result)
+// 克莱姆法则计算线性方程组
+void CramerRule(double **arr, int size1, double *answer, double *result)
 {
-    int det = matrix(arr, size1);
-    //判断特殊情况
+    double det = matrix(arr, size1);
+    // 判断特殊情况
     if (det == 0)
     {
         printf("行列式为空。\n");
         return;
     }
-    //开辟二维数组空间
-    int **n = (int **)malloc(size1 * sizeof(int *)); // arr
+    // 开辟二维数组空间
+    double **n = (double **)malloc(size1 * sizeof(double *)); // arr
     for (int i = 0; i < size1; ++i)
     {
-        n[i] = (int *)malloc((size1 - 1) * sizeof(int));
+        n[i] = (double *)malloc(size1 * sizeof(double));
     }
-    //a用于交替answer在行列式的不同列切换
+    // a用于交替answer在行列式的不同列切换
     for (int a = 0; a < size1; ++a)
     {
-        //复制数组
+        // 复制数组
         for (int i = 0; i < size1; ++i)
         {
             for (int j = 0; j < size1; ++j)
@@ -113,18 +112,18 @@ void CramerRule(int **arr, int size1, int *answer, float *result)
                 n[i][j] = arr[i][j];
             }
         }
-        //交换列的位置
+        // 交换列的位置
         for (int k = 0; k < size1; ++k)
         {
             n[k][a] = answer[k];
         }
-        //计算行列式
-        int detAi = matrix(n, size1);
-        printf("detAi=%d,det=%d\n", detAi, det);
-        //计算方程组的解（但不知道为什么输出的是整形）
+        // 计算行列式
+        double detAi = matrix(n, size1);
+        printf("detAi=%lf, det=%lf\n", detAi, det);
+        // 计算方程组的解
         result[a] = detAi / det;
     }
-    //释放内存
+    // 释放内存
     for (int i = 0; i < size1; ++i)
     {
         free(n[i]);

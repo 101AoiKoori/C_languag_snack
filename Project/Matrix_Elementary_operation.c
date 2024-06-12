@@ -1,7 +1,7 @@
 #include<stdio.h>
 #define size 3
 
-void Line(int arr[][size],int mode ,int num1, int num2)
+void TurnLine(int arr[][size],int mode ,int num1, int num2)
 {
     int sign = (mode % 2 == 0) ? 1 : -1;
     if(!sign)
@@ -23,6 +23,16 @@ void Line(int arr[][size],int mode ,int num1, int num2)
         }
     }
 }
+
+void kMultiply(int arr[][size],int k){
+    
+}
+
+
+
+
+
+
 
 int main()
 {
@@ -53,7 +63,7 @@ int main()
             break;
     }
 
-    Line(matrix,k ,1, 2); 
+    TurnLine(matrix,k ,1, 2); 
 
     printf("\n交换后的矩阵:\n");
 
