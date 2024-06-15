@@ -1,36 +1,42 @@
 #include<stdio.h>
 #define size 3
 
-void TurnLine(int arr[][size],int mode ,int num1, int num2)
+void SwapTransformation(int arr[][size],int model ,int paramenter1, int paramenter2)
 {
-    int sign = (mode % 2 == 0) ? 1 : -1;
-    if(!sign)
+    if(model)
     {
         for (int j = 0; j < size; ++j)
         {
-            int temp = arr[num1][j];
-            arr[num1][j] = arr[num2][j];
-            arr[num2][j] = temp;
+            int temp = arr[paramenter1][j];
+            arr[paramenter1][j] = arr[paramenter2][j];
+            arr[paramenter2][j] = temp;
         }
     }
     else
     {
         for (int j = 0; j < size; ++j)
         {
-            int temp = arr[j][num1];
-            arr[j][num1] = arr[j][num2];
-            arr[j][num2] = temp;
+            int temp = arr[j][paramenter1];
+            arr[j][paramenter1] = arr[j][paramenter2];
+            arr[j][paramenter2] = temp;
         }
     }
 }
 
-void kMultiply(int arr[][size],int k){
-    
+void kMultiply(int arr[][size], int model,int paramenter1, int k)
+{
+    if(model){
+        for (int i = 0; i < size;++i){
+            arr[paramenter1-1][i] *= k;
+        }
+    }else{
+        for (int i = 0; i < size; ++i)
+        {
+            arr[i][paramenter1-1] *= k;
+        }
+    }
+
 }
-
-
-
-
 
 
 
@@ -56,16 +62,16 @@ int main()
             k = 1;
             break;
         case 2:
-            k = 2;
+            k = 0;
             break;
         default:
             printf("输入错误");
             break;
     }
 
-    TurnLine(matrix,k ,1, 2); 
-
-    printf("\n交换后的矩阵:\n");
+    //SwapTransformation(matrix,k ,1, 2);
+    kMultiply(matrix, k, 1, 2);
+    printf("\n变换后的矩阵:\n");
 
     for (int j = 0; j < size; ++j)
     {
