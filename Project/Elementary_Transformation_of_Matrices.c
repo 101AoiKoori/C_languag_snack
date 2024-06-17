@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include <stdlib.h>
 #define size 3
 
 void SwapTransformation(int arr[][size],int model ,int paramenter1, int paramenter2)
@@ -38,9 +39,22 @@ void kMultiply(int arr[][size], int model,int paramenter1, int k)
 
 }
 
+void col_operation(double matrix[][size], int rows, int cols, int src_col, int dest_col, double l,int model)
+{
+   if(model){
+        for (int j = 0; j < cols; j++)
+        {
+            matrix[dest_col][j] += l * matrix[src_col][j];
+        }
+    }else{
+        for (int i = 0; i < rows; i++){
+            matrix[i][dest_col] += l * matrix[i][src_col];
 
+        }
+    }
+}
 
-int main()
+    int main()
 {
     int matrix[size][size] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
@@ -71,6 +85,7 @@ int main()
 
     //SwapTransformation(matrix,k ,1, 2);
     kMultiply(matrix, k, 1, 2);
+    
     printf("\n变换后的矩阵:\n");
 
     for (int j = 0; j < size; ++j)
