@@ -22,7 +22,6 @@ int main()
     }
     double result[4];
 
-
     CramerRule(arrPtr, size, answer, result);
 
     for (int l = 0; l < size; ++l)
@@ -46,10 +45,26 @@ double matrix(double **arr, int size)
 
     // 开辟二维数组空间
     double **p = (double **)malloc((size - 1) * sizeof(double *));
+    if (p == NULL)
+    {
+        fprintf(stderr, "内存分配失败\n");
+        exit(EXIT_FAILURE);
+    }
 
     for (int i = 0; i < size - 1; ++i)
     {
         p[i] = (double *)malloc((size - 1) * sizeof(double));
+        if (p[i] == NULL)
+        {
+            fprintf(stderr, "内存分配失败\n");
+            // 释放已分配的内存
+            for (int j = 0; j < i; ++j)
+            {
+                free(p[j]);
+            }
+            free(p);
+            exit(EXIT_FAILURE);
+        }
     }
 
     double sum = 0;
@@ -97,9 +112,26 @@ void CramerRule(double **arr, int size1, double *answer, double *result)
     }
     // 开辟二维数组空间
     double **n = (double **)malloc(size1 * sizeof(double *)); // arr
+    if (n == NULL)
+    {
+        fprintf(stderr, "内存分配失败\n");
+        exit(EXIT_FAILURE);
+    }
+
     for (int i = 0; i < size1; ++i)
     {
         n[i] = (double *)malloc(size1 * sizeof(double));
+        if (n[i] == NULL)
+        {
+            fprintf(stderr, "内存分配失败\n");
+            // 释放已分配的内存
+            for (int j = 0; j < i; ++j)
+            {
+                free(n[j]);
+            }
+            free(n);
+            exit(EXIT_FAILURE);
+        }
     }
     // a用于交替answer在行列式的不同列切换
     for (int a = 0; a < size1; ++a)
