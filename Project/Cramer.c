@@ -57,7 +57,6 @@ double matrix(double **arr, int size)
         if (p[i] == NULL)
         {
             fprintf(stderr, "内存分配失败\n");
-            // 释放已分配的内存
             for (int j = 0; j < i; ++j)
             {
                 free(p[j]);
@@ -111,7 +110,7 @@ void CramerRule(double **arr, int size1, double *answer, double *result)
         return;
     }
     // 开辟二维数组空间
-    double **n = (double **)malloc(size1 * sizeof(double *)); // arr
+    double **n = (double **)malloc(size1 * sizeof(double *));
     if (n == NULL)
     {
         fprintf(stderr, "内存分配失败\n");
@@ -124,7 +123,6 @@ void CramerRule(double **arr, int size1, double *answer, double *result)
         if (n[i] == NULL)
         {
             fprintf(stderr, "内存分配失败\n");
-            // 释放已分配的内存
             for (int j = 0; j < i; ++j)
             {
                 free(n[j]);
@@ -155,7 +153,7 @@ void CramerRule(double **arr, int size1, double *answer, double *result)
         // 计算方程组的解
         result[a] = detAi / det;
     }
-    // 释放内存
+
     for (int i = 0; i < size1; ++i)
     {
         free(n[i]);
